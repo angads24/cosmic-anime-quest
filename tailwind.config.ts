@@ -57,6 +57,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        anime: {
+          "card-hover": "hsl(var(--anime-card-hover))",
+        },
+      },
+      backgroundImage: {
+        "anime-gradient": "var(--anime-gradient)",
+      },
+      boxShadow: {
+        "anime-glow": "var(--anime-glow)",
+        "anime-text": "var(--anime-text-glow)",
       },
       borderRadius: {
         lg: "var(--radius)",
