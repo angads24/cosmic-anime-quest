@@ -3,7 +3,7 @@ import { Play, Search, Grid, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
-import heroImage from "@/assets/anime-hero.jpg";
+import heroImage from "@/assets/code-geass-hero.jpg";
 import { animeDatabase } from "@/data/animeDatabase";
 
 // Use actual anime data from database for featured
