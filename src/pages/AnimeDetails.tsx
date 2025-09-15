@@ -7,32 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
-
-// Mock anime data - in real app this would come from API
-const animeData = {
-  1: {
-    id: 1,
-    title: "Attack on Titan",
-    originalTitle: "Shingeki no Kyojin",
-    genre: ["Action", "Drama", "Fantasy"],
-    rating: 9.0,
-    year: 2013,
-    status: "Completed",
-    episodes: 75,
-    duration: "24 min per episode",
-    studio: "Wit Studio / MAPPA",
-    image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
-    bannerImage: "https://cdn.myanimelist.net/images/anime/10/47347l.jpg",
-    description: "Centuries ago, mankind was slaughtered to near extinction by monstrous humanoid creatures called titans, forcing humans to hide in fear behind enormous concentric walls. What makes these giants truly terrifying is that their taste for human flesh is not born out of hunger but what appears to be out of pleasure. To ensure their survival, the remnants of humanity began living within defensive barriers, resulting in one hundred years without a single titan encounter. However, that fragile calm is soon shattered when a colossal titan manages to breach the supposedly impregnable outer wall, reigniting the fight for survival against the man-eating abominations.",
-    episodes_list: [
-      { number: 1, title: "To You, in 2000 Years", duration: "24:42" },
-      { number: 2, title: "That Day", duration: "24:15" },
-      { number: 3, title: "A Dim Light Amid Despair", duration: "24:28" },
-      { number: 4, title: "The Night of the Closing Ceremony", duration: "24:33" },
-      { number: 5, title: "First Battle", duration: "24:25" }
-    ]
-  }
-};
+import { getAnimeById } from "@/data/animeDatabase";
 
 const AnimeDetails = () => {
   const { id } = useParams();
@@ -40,8 +15,26 @@ const AnimeDetails = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
 
-  // Get anime data (fallback for demo purposes)
-  const anime = animeData[Number(id) as keyof typeof animeData] || animeData[1];
+  // Get anime data
+  const anime = getAnimeById(Number(id));
+  
+  if (!anime) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl font-bold mb-4">Anime Not Found</h1>
+          <p className="text-muted-foreground mb-8">The anime you're looking for doesn't exist.</p>
+          <Link to="/dashboard">
+            <Button className="bg-anime-gradient hover:shadow-anime-glow">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const handleAddToFavorites = () => {
     setIsFavorite(!isFavorite);
@@ -218,8 +211,8 @@ const AnimeDetails = () => {
                 <Card className="border-muted">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-semibold mb-4">Episodes</h3>
-                    <div className="space-y-3">
-                      {anime.episodes_list.map((episode) => (
+                     <div className="space-y-3">
+                      {anime.episodes_list?.map((episode) => (
                         <div 
                           key={episode.number}
                           className="flex items-center justify-between p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors cursor-pointer group"

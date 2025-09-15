@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
+import { animeDatabase } from "@/data/animeDatabase";
 
 const watchingAnime = [
   {
@@ -24,7 +25,7 @@ const watchingAnime = [
     totalEpisodes: 12
   },
   {
-    id: 3,
+    id: 5,
     title: "Jujutsu Kaisen",
     episode: "S1E12",
     progress: 90,
@@ -33,37 +34,14 @@ const watchingAnime = [
   }
 ];
 
-const favoriteAnime = [
-  {
-    id: 4,
-    title: "Your Name",
-    genre: "Romance, Drama",
-    rating: "8.4",
-    image: "https://cdn.myanimelist.net/images/anime/5/87048.jpg"
-  },
-  {
-    id: 5,
-    title: "Spirited Away",
-    genre: "Adventure, Family", 
-    rating: "9.3",
-    image: "https://cdn.myanimelist.net/images/anime/6/79597.jpg"
-  },
-  {
-    id: 6,
-    title: "Princess Mononoke",
-    genre: "Adventure, Drama",
-    rating: "8.4",
-    image: "https://cdn.myanimelist.net/images/anime/7/75919.jpg"
-  },
-  {
-    id: 7,
-    title: "Akira",
-    genre: "Action, Sci-Fi",
-    rating: "8.0",
-    image: "https://cdn.myanimelist.net/images/anime/11/50947.jpg"
-  }
-];
-
+// Use actual anime data from database for favorites
+const favoriteAnime = animeDatabase.slice(2, 8).map(anime => ({
+  id: anime.id,
+  title: anime.title,
+  genre: anime.genre.join(", "),
+  rating: anime.rating.toString(),
+  image: anime.image
+}));
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">

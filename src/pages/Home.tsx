@@ -4,37 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import heroImage from "@/assets/anime-hero.jpg";
+import { animeDatabase } from "@/data/animeDatabase";
 
-const featuredAnime = [
-  {
-    id: 1,
-    title: "Attack on Titan",
-    genre: "Action, Drama",
-    rating: "9.0",
-    image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg"
-  },
-  {
-    id: 2,
-    title: "Demon Slayer",
-    genre: "Action, Supernatural",
-    rating: "8.7",
-    image: "https://cdn.myanimelist.net/images/anime/1286/99889.jpg"
-  },
-  {
-    id: 3,
-    title: "Your Name",
-    genre: "Romance, Drama",
-    rating: "8.4",
-    image: "https://cdn.myanimelist.net/images/anime/5/87048.jpg"
-  },
-  {
-    id: 4,
-    title: "Spirited Away",
-    genre: "Adventure, Family",
-    rating: "9.3",
-    image: "https://cdn.myanimelist.net/images/anime/6/79597.jpg"
-  }
-];
+// Use actual anime data from database for featured
+const featuredAnime = animeDatabase.slice(0, 4).map(anime => ({
+  id: anime.id,
+  title: anime.title,
+  genre: anime.genre.join(", "),
+  rating: anime.rating.toString(),
+  image: anime.image
+}));
 
 const Home = () => {
   return (
